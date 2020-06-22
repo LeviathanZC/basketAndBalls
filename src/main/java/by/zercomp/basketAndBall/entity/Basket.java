@@ -25,19 +25,9 @@ public class Basket {
     public static void setCounter(int counter) {
         Basket.counter = counter;
     }
+
     public void setTotalWeight(double totalWeight) {
         this.totalWeight = totalWeight;
-    }
-    public List<Ball> getByColor(Color color) throws InvalidDataException {
-
-    }
-
-
-
-    public void clear() {
-        counter = 0;
-        this.storage = new ArrayList<Ball>();
-        this.totalWeight = 0;
     }
 
     public boolean isFull() {
@@ -47,7 +37,6 @@ public class Basket {
     public boolean isEmpty() {
         return counter == 0;
     }
-
 
     public static int getCounter() {
         return counter;

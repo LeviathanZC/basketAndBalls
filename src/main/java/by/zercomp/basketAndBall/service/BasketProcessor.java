@@ -16,6 +16,8 @@ public class BasketProcessor {
     private BasketProcessor() {
     }
 
+    public static final int ABSOLUTE_ZERO = 0;
+
     public static Basket createBasket(int maxCapacity) throws InvalidDataException {
         if (ArithmeticValidator.isNegative(maxCapacity)) {
             throw new InvalidDataException("capacity must be positive number:" + maxCapacity);
@@ -75,5 +77,9 @@ public class BasketProcessor {
             throw new InvalidDataException("weight is negative: " + weight);
         }
         basket.setTotalWeight(basket.getTotalWeight() - weight);
+    }
+
+    public static Basket clear(Basket basket) {
+        return new Basket(basket.getMaxCapacity());
     }
 }
