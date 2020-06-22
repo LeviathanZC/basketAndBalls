@@ -18,6 +18,7 @@ public class Basket {
     public Basket(int maxCapacity) {
         this.maxCapacity = maxCapacity;
         this.storage = new ArrayList<Ball>();
+        this.totalWeight = 0;
     }
 
     public void add(Ball ball) throws InvalidDataException, BasketOverflowException {
@@ -28,20 +29,31 @@ public class Basket {
             throw new BasketOverflowException(maxCapacity);
         }
         this.storage.add(ball);
+        this.totalWeight += ball.getWeight();
         counter++;
     }
 
     public Ball getByID(int id) throws InvalidDataException {
         if(BasketSpaceValidator.validateID(this, id)) {
             counter--;
-            return storage.remove(id);
+            Ball tempBall = storage.remove(id);
+            return
         }
         throw new InvalidDataException("invalid id: " + id);
+    }
+
+    private void addWeight(double weight) {
+        this.totalWeight += weight;
+    }
+
+    private void subtractWeight(double weight) {
+        this.totalWeight -= weight;
     }
 
     public void clear() {
         counter = 0;
         this.storage = new ArrayList<Ball>();
+        this.totalWeight = 0;
     }
 
     public boolean isFull() {
