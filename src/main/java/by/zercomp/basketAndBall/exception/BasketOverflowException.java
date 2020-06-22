@@ -2,10 +2,11 @@ package by.zercomp.basketAndBall.exception;
 
 public class BasketOverflowException extends Exception {
 
-    private static final String message = "Basket is full: ";
+    private static final String startMsg = "Basket is full. ";
 
-    public BasketOverflowException(double weightConstraint, double weight) {
-        super(new StringBuilder(message).append(weightConstraint).append(" ,").append(weight).toString());
+    public BasketOverflowException(int capacity) {
+        super(new StringBuilder(startMsg).append("max capacity:").append(capacity).toString());
     }
+
 
 }
