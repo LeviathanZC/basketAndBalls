@@ -2,6 +2,10 @@ package by.zercomp.basketAndBall.entity;
 
 import by.zercomp.basketAndBall.exception.BasketOverflowException;
 import by.zercomp.basketAndBall.exception.InvalidDataException;
+import by.zercomp.basketAndBall.validator.BasketSpaceValidator;
+
+import java.util.ArrayList;
+import java.util.List;
 
 public class Basket {
 
@@ -9,13 +13,11 @@ public class Basket {
 
     private double totalWeight;
     private int maxCapacity;
-    private Ball[] storage;
-
-
+    private List<Ball> storage;
 
     public Basket(int maxCapacity) {
         this.maxCapacity = maxCapacity;
-        this.storage = new Ball[maxCapacity];
+        this.storage = new ArrayList<Ball>();
     }
 
     public void add(Ball ball) throws InvalidDataException, BasketOverflowException {
@@ -25,16 +27,21 @@ public class Basket {
         if (counter == maxCapacity) {
             throw new BasketOverflowException(maxCapacity);
         }
-        this.storage[counter++] = ball;
+        this.storage.add(ball);
+        counter++;
     }
 
-    public void getByID(int id) {
-
+    public Ball getByID(int id) throws InvalidDataException {
+        if(BasketSpaceValidator.validateID(this, id)) {
+            counter--;
+            return storage.remove(id);
+        }
+        throw new InvalidDataException("invalid id: " + id);
     }
 
     public void clear() {
         counter = 0;
-        this.storage = new Ball[maxCapacity];
+        this.storage = new ArrayList<Ball>();
     }
 
     public boolean isFull() {
@@ -43,5 +50,30 @@ public class Basket {
 
     public boolean isEmpty() {
         return counter == 0;
+    }
+
+
+    public static int getCounter() {
+        return counter;
+    }
+
+    public double getTotalWeight() {
+        return totalWeight;
+    }
+
+    public int getMaxCapacity() {
+        return maxCapacity;
+    }
+
+    public void setMaxCapacity(int maxCapacity) {
+        this.maxCapacity = maxCapacity;
+    }
+
+    public List<Ball> getStorage() {
+        return storage;
+    }
+
+    public void setStorage(List<Ball> storage) {
+        this.storage = storage;
     }
 }
