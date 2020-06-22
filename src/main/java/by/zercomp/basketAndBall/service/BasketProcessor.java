@@ -2,10 +2,14 @@ package by.zercomp.basketAndBall.service;
 
 import by.zercomp.basketAndBall.entity.Ball;
 import by.zercomp.basketAndBall.entity.Basket;
+import by.zercomp.basketAndBall.entity.Color;
 import by.zercomp.basketAndBall.exception.BasketOverflowException;
 import by.zercomp.basketAndBall.exception.InvalidDataException;
 import by.zercomp.basketAndBall.validator.ArithmeticValidator;
 import by.zercomp.basketAndBall.validator.BasketSpaceValidator;
+
+import java.util.ArrayList;
+import java.util.List;
 
 public class BasketProcessor {
 
@@ -39,6 +43,24 @@ public class BasketProcessor {
             return tempBall;
         }
         throw new InvalidDataException("invalid id: " + id);
+    }
+
+    public static List<Ball> getByColor(Color color, Basket basket) throws InvalidDataException {
+        if(color == null) {
+            throw new InvalidDataException("color must be not null");
+        }
+        List<Ball> buffer = new ArrayList<Ball>();
+        List<Ball> storage = basket.getStorage();
+        for (Ball item: storage) {
+            if(item != null && item.getColor().equals(color)) {
+                Ball temp = item;
+                //очистка из корзины
+                storage.remove(temp);
+                //добавление в буферный список.
+                buffer.add(temp);
+            }
+        }
+        return buffer;
     }
 
     private static void addWeight(Basket basket, double weight) throws InvalidDataException {

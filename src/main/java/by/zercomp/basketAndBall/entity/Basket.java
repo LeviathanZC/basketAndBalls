@@ -22,35 +22,14 @@ public class Basket {
         this.totalWeight = 0;
     }
 
-    public void add(Ball ball) {
-
-    }
-
-
-
     public static void setCounter(int counter) {
         Basket.counter = counter;
     }
-
     public void setTotalWeight(double totalWeight) {
         this.totalWeight = totalWeight;
     }
-
-    public Ball getByID(int id) throws InvalidDataException {
-
-    }
-
     public List<Ball> getByColor(Color color) throws InvalidDataException {
-        if(color == null) {
-            throw new InvalidDataException("color must be not null");
-        }
-        List<Ball> buffer = new ArrayList<Ball>();
-        for (Ball item: this.storage) {
-            if(item != null && item.getColor().equals(color)) {
-                buffer.add(item);
-            }
-        }
-        return buffer;
+
     }
 
 
