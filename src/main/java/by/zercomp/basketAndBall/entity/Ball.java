@@ -10,4 +10,20 @@ public class Ball {
         this.color = color;
     }
 
+    public double getWeight() {
+        return this.weight;
+    }
+
+    public Color getColor() {
+        return this.color;
+    }
+
+    public void setWeight(double weight) {
+        this.weight = weight;
+    }
+
+    public void setColor(Color color) {
+        this.color = color;
+    }
+
 }
