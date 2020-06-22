@@ -2,6 +2,7 @@ package by.zercomp.basketAndBall.entity;
 
 import by.zercomp.basketAndBall.exception.BasketOverflowException;
 import by.zercomp.basketAndBall.exception.InvalidDataException;
+import by.zercomp.basketAndBall.validator.ArithmeticValidator;
 import by.zercomp.basketAndBall.validator.BasketSpaceValidator;
 
 import java.util.ArrayList;
@@ -29,7 +30,7 @@ public class Basket {
             throw new BasketOverflowException(maxCapacity);
         }
         this.storage.add(ball);
-        this.totalWeight += ball.getWeight();
+        addWeight(ball.getWeight());
         counter++;
     }
 
@@ -37,16 +38,36 @@ public class Basket {
         if(BasketSpaceValidator.validateID(this, id)) {
             counter--;
             Ball tempBall = storage.remove(id);
-            return
+            subtractWeight(tempBall.getWeight());
+            return tempBall;
         }
         throw new InvalidDataException("invalid id: " + id);
     }
 
-    private void addWeight(double weight) {
+    public List<Ball> getByColor(Color color) throws InvalidDataException {
+        if(color == null) {
+            throw new InvalidDataException("color must be not null");
+        }
+        List<Ball> buffer = new ArrayList<Ball>();
+        for (Ball item: this.storage) {
+            if(item != null && item.getColor().equals(color)) {
+                buffer.add(item);
+            }
+        }
+        return buffer;
+    }
+
+    private void addWeight(double weight) throws InvalidDataException {
+        if(ArithmeticValidator.isNegative(weight)) {
+            throw new InvalidDataException("weight is negative: " + weight);
+        }
         this.totalWeight += weight;
     }
 
-    private void subtractWeight(double weight) {
+    private void subtractWeight(double weight) throws InvalidDataException {
+        if(ArithmeticValidator.isNegative(weight)) {
+            throw new InvalidDataException("weight is negative: " + weight);
+        }
         this.totalWeight -= weight;
     }
 
