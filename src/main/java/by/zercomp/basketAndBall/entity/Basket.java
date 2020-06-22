@@ -22,26 +22,22 @@ public class Basket {
         this.totalWeight = 0;
     }
 
-    public void add(Ball ball) throws InvalidDataException, BasketOverflowException {
-        if(ball == null) {
-            throw new InvalidDataException("ball is null");
-        }
-        if (counter == maxCapacity) {
-            throw new BasketOverflowException(maxCapacity);
-        }
-        this.storage.add(ball);
-        addWeight(ball.getWeight());
-        counter++;
+    public void add(Ball ball) {
+
+    }
+
+
+
+    public static void setCounter(int counter) {
+        Basket.counter = counter;
+    }
+
+    public void setTotalWeight(double totalWeight) {
+        this.totalWeight = totalWeight;
     }
 
     public Ball getByID(int id) throws InvalidDataException {
-        if(BasketSpaceValidator.validateID(this, id)) {
-            counter--;
-            Ball tempBall = storage.remove(id);
-            subtractWeight(tempBall.getWeight());
-            return tempBall;
-        }
-        throw new InvalidDataException("invalid id: " + id);
+
     }
 
     public List<Ball> getByColor(Color color) throws InvalidDataException {
@@ -57,19 +53,7 @@ public class Basket {
         return buffer;
     }
 
-    private void addWeight(double weight) throws InvalidDataException {
-        if(ArithmeticValidator.isNegative(weight)) {
-            throw new InvalidDataException("weight is negative: " + weight);
-        }
-        this.totalWeight += weight;
-    }
 
-    private void subtractWeight(double weight) throws InvalidDataException {
-        if(ArithmeticValidator.isNegative(weight)) {
-            throw new InvalidDataException("weight is negative: " + weight);
-        }
-        this.totalWeight -= weight;
-    }
 
     public void clear() {
         counter = 0;
