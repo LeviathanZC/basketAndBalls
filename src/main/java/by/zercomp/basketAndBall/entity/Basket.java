@@ -1,9 +1,5 @@
 package by.zercomp.basketAndBall.entity;
 
-import by.zercomp.basketAndBall.exception.BasketOverflowException;
-import by.zercomp.basketAndBall.exception.InvalidDataException;
-import by.zercomp.basketAndBall.validator.ArithmeticValidator;
-import by.zercomp.basketAndBall.validator.BasketSpaceValidator;
 
 import java.util.ArrayList;
 import java.util.List;
